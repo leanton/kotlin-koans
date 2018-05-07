@@ -37,3 +37,11 @@ class DateRange(val start: MyDate, val endInclusive: MyDate) : Iterator<MyDate> 
         return date >= start && date <= endInclusive
     }
 }
+
+operator fun MyDate.plus(time: TimeInterval): MyDate = addTimeIntervals(time, 1)
+
+data class RepeatedTimeInterval(val timeInterval: TimeInterval, val number: Int)
+
+operator fun TimeInterval.times(number: Int) = RepeatedTimeInterval(this, number)
+
+operator fun MyDate.plus(timeIntervals: RepeatedTimeInterval) = addTimeIntervals(timeIntervals.timeInterval, timeIntervals.number)
